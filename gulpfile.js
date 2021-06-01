@@ -1073,25 +1073,35 @@ async function parseMinified(dir) {
     keep_fnames: true,
   };
 
+  /**
+   * Minifies the code and removed strict mode.
+   * We are removing strict mode to bypass unsafe-eval restrictions in regenerator-runtime.
+   * @param {string} file 
+   */
+  const minifyAndRemoveStrict = async (file) => {
+    const result = (await Terser.minify(file, options)).code
+    return result.replace(/"use strict";/gm, '');
+  }
+
   fs.writeFileSync(
     dir + "/web/pdf.viewer.js",
-    (await Terser.minify(viewerFiles, options)).code
+    await minifyAndRemoveStrict(viewerFiles)
   );
   fs.writeFileSync(
     dir + "/build/pdf.min.js",
-    (await Terser.minify(pdfFile, options)).code
+    await minifyAndRemoveStrict(pdfFile)
   );
   fs.writeFileSync(
     dir + "/build/pdf.worker.min.js",
-    (await Terser.minify(pdfWorkerFile, options)).code
+    await minifyAndRemoveStrict(pdfWorkerFile)
   );
   fs.writeFileSync(
     dir + "/build/pdf.sandbox.min.js",
-    (await Terser.minify(pdfSandboxFile, options)).code
+    await minifyAndRemoveStrict(pdfSandboxFile)
   );
   fs.writeFileSync(
     dir + "image_decoders/pdf.image_decoders.min.js",
-    (await Terser.minify(pdfImageDecodersFile, options)).code
+    await minifyAndRemoveStrict(pdfImageDecodersFile)
   );
 
   console.log();
