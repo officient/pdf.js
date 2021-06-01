@@ -126,6 +126,8 @@ class AnnotationFactory {
             return new ButtonWidgetAnnotation(parameters);
           case "Ch":
             return new ChoiceWidgetAnnotation(parameters);
+          case "Sig":
+            return new SquareAnnotation(parameters);
         }
         warn(
           `Unimplemented widget field type "${fieldType}", ` +
