@@ -1,0 +1,108 @@
+/* Hide sidebar and toolbar */
+#sidebarContainer,
+.toolbar {
+    display: none !important;
+}
+
+/* Custom zoom in / out buttons */
+.toolbar-custom {
+    cursor: default;
+    z-index: 9999;
+    border: 0 none;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0;
+    position: fixed;
+    pointer-events: none;
+    width: 300px;
+    margin: auto;
+}
+
+.bottomButton {
+    min-width: 16px;
+    padding: 2px 6px 0;
+    border: 1px solid transparent;
+    color: hsla(0,0%,100%,.8);
+    font-size: 12px;
+    line-height: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: button;
+    -webkit-transition-property: background-color, border-color, box-shadow;
+    -webkit-transition-duration: 150ms;
+    -webkit-transition-timing-function: ease;
+    transition-property: background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+}
+
+.toolbar-custom .bottomButton {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 6%), 0 1px 3px 0 rgb(0 0 0 / 10%);
+    background-color: #eaf4fe;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.bottomButton > span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.toolbar-custom .bottomButton::before {
+    position: absolute;
+    display: inline-block;
+    top: 7px;
+    left: 7px;
+}
+
+.splitToolbarButtonCustom {
+    width: 112px;
+    margin: auto;
+    display: block;
+    pointer-events: all;
+}
+
+.splitToolbarButtonCustom > .bottomButton {
+    position: relative;
+}
+
+html[dir='ltr'] .splitToolbarButtonCustom > .bottomButton {
+    float: left;
+}
+
+html[dir='ltr'] .bottomButton:first-child,
+html[dir='rtl'] .bottomButton:last-child {
+    margin-left: 4px;
+}
+
+html[dir='ltr'] .splitToolbarButtonCustom > .bottomButton.zoomOut,
+html[dir='rtl'] .splitToolbarButtonCustom > .bottomButton.zoomIn {
+    position: relative;
+    margin: 0;
+    margin-right: 8px;
+    border-right-color: transparent;
+}
+
+html[dir='ltr'] .splitToolbarButtonCustom > .bottomButton.zoomIn,
+html[dir='rtl'] .splitToolbarButtonCustom > .bottomButton.zoomOut {
+    position: relative;
+    margin: 0;
+    margin-left: 8px;
+    border-left-color: transparent;
+}
+
+.bottomButton.zoomOut::before {
+    content: url(images/toolbarButton-zoomOut@2x.png?v=2);
+}
+
+.bottomButton.zoomIn::before {
+    content: url(images/toolbarButton-zoomIn@2x.png?v=2);
+}
