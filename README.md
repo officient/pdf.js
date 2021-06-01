@@ -13,12 +13,12 @@ We also added our own styling, without a sidebar and toolbar to improve UX on mo
 
 ## Building
 
-`
+```
 npm install -g gulp-cli
 npm install
 
 gulp minified-legacy
 cp -rf build/minified-legacy/* ../officient-employee-self-service/html/pdfjs
-`
+```
 
 Then follow additional steps in the ESS repo [how-to-upgrade.md](https://github.com/officient/officient-employee-self-service/blob/master/html/how-to-upgrade.md)
