@@ -10,3 +10,15 @@ We have made a [patch](https://github.com/mozilla/pdf.js/commit/226106d83384734d
 We are also embedding the viewer.html inside an iframe inside a PWA, this causes us to load the required file diffently.
 
 We also added our own styling, without a sidebar and toolbar to improve UX on mobile.
+
+## Building
+
+`
+npm install -g gulp-cli
+npm install
+
+gulp minified-legacy
+cp -rf build/minified-legacy/* ../officient-employee-self-service/html/pdfjs
+`
+
+Then follow additional steps in the ESS repo [how-to-upgrade.md](https://github.com/officient/officient-employee-self-service/blob/master/html/how-to-upgrade.md)
