@@ -233,7 +233,7 @@ const defaultOptions = {
     value:
       typeof PDFJSDev === "undefined" || !PDFJSDev.test("PRODUCTION")
         ? "../src/worker_loader.js"
-        : "../build/pdf.worker.js",
+        : "/pdfjs/build/pdf.worker.js",
     kind: OptionKind.WORKER,
   },
 };
@@ -256,7 +256,7 @@ if (
     value:
       typeof PDFJSDev === "undefined" || !PDFJSDev.test("PRODUCTION")
         ? "../build/dev-sandbox/pdf.sandbox.js"
-        : "../build/pdf.sandbox.js",
+        : "/pdfjs/build/pdf.sandbox.js",
     kind: OptionKind.VIEWER,
   };
 
@@ -269,7 +269,7 @@ if (
   };
   defaultOptions.sandboxBundleSrc = {
     /** @type {string} */
-    value: "../build/pdf.sandbox.js",
+    value: "/pdfjs/build/pdf.sandbox.js",
     kind: OptionKind.VIEWER,
   };
 }

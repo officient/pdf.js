@@ -47,9 +47,9 @@
   margin: var(--page-margin);
   position: relative;
   overflow: visible;
-  border: var(--page-border);
+  border-top: var(--page-border);
+  border-bottom: var(--page-border);
   background-clip: content-box;
-  border-image: url(images/shadow.png) 9 9 repeat;
   background-color: rgba(255, 255, 255, 1);
 }
 

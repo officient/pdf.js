@@ -2167,7 +2167,21 @@ function webViewerInitialized() {
   if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
     const queryString = document.location.search.substring(1);
     const params = parseQueryString(queryString);
-    file = "file" in params ? params.file : AppOptions.get("defaultUrl");
+
+    // Determining the URL of the PDF we are trying to load
+    // 1) No URL specified, will use a "default" fallback URL
+    file = AppOptions.get("defaultUrl");
+
+    // 2) We are loading the URL from the querystring, eg: viewer.html?file=https://....
+    if ('file' in params && params.file) {
+      file = params.file;
+    }
+
+    // 3) We are inside an iframe, and the URL is inside the URL attribute, eg: <iframe url="https://..." />
+    if (window.frameElement && window.frameElement.getAttribute('url')) {
+      file = window.frameElement.getAttribute('url'); // Android: 
+    }
+  
     validateFileURL(file);
   } else if (PDFJSDev.test("MOZCENTRAL")) {
     file = window.location.href;
