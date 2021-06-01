@@ -1,6 +1,6 @@
 # PDF.js
 
-Forked from [/mozilla/pdf.js](https://github.com/mozilla/pdf.js) - See [diff](https://github.com/mozilla/pdf.js/compare/3456ed271b0109f4be735691d9565e513c43267a...officient:master).
+Forked from [/mozilla/pdf.js](https://github.com/mozilla/pdf.js) - See [diff](https://github.com/mozilla/pdf.js/compare/v2.8.335...officient:2-8).
 
 ## Why
 
