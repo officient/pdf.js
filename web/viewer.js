@@ -13,6 +13,24 @@
  * limitations under the License.
  */
 
+// ios keyboard viewport fix
+// https://github.com/apache/cordova-ios/issues/417
+// fixes issue with cordova iOS when focusing out of the password input or search page input
+if (navigator && navigator.userAgent && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+  document.addEventListener('focusout', () => {
+    // wait a bit, to end of eventloop -
+    setTimeout(() => {
+      // force rerender viewport by minimal amount on Y
+      window.scrollTo(window.scrollX, (window.scrollY + 1))
+
+      // sent message to parent to also fix scroll
+      if (window && window.parent && window.parent.postMessage) {
+        window.parent.postMessage('ios_force_focusout', '*')
+      }
+    }, 0)
+  })
+}
+
 import { AppOptions } from "./app_options.js";
 import { PDFViewerApplication } from "./app.js";
 
