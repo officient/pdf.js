@@ -13,9 +13,10 @@
  * limitations under the License.
  */
 
-// ios keyboard viewport fix
-// https://github.com/apache/cordova-ios/issues/417
-// fixes issue with cordova iOS when focusing out of the password input or search page input
+// Fixes Cordova iOS keyboard issue where the scroll changes after focusing on an input
+// We need to focus on the password input for password protected PDFs
+// We scroll back to fix the viewport issue
+// see https://github.com/apache/cordova-ios/issues/417
 if (navigator && navigator.userAgent && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
   document.addEventListener('focusout', () => {
     // wait a bit, to end of eventloop -

@@ -1045,19 +1045,27 @@ gulp.task(
 );
 
 async function parseMinified(dir) {
-  const pdfFile = fs.readFileSync(dir + "/build/pdf.js").toString();
-  const pdfWorkerFile = fs
-    .readFileSync(dir + "/build/pdf.worker.js")
-    .toString();
-  const pdfSandboxFile = fs
-    .readFileSync(dir + "/build/pdf.sandbox.js")
-    .toString();
-  const pdfImageDecodersFile = fs
-    .readFileSync(dir + "/image_decoders/pdf.image_decoders.js")
-    .toString();
+  /**
+   * Minifies the code and removed strict mode.
+   * We are removing strict mode to bypass unsafe-eval restrictions in regenerator-runtime.
+   * @param {string} file 
+   */
+  const readAndReplaceRegenerator = (filePath) => {
+    const file = fs.readFileSync(filePath).toString();
+    const code = file.replace(
+      /try {\s+regeneratorRuntime = runtime;\s+}\s+catch\s+\(accidentalStrictMode\) {\s+Function\("r", "regeneratorRuntime = r"\)\(runtime\);\s+}/gm,
+      'var regeneratorRuntime = runtime;',
+    );
+    return code
+  }
+
+  const pdfFile = readAndReplaceRegenerator(dir + "/build/pdf.js");
+  const pdfWorkerFile = readAndReplaceRegenerator(dir + "/build/pdf.worker.js");
+  const pdfSandboxFile = readAndReplaceRegenerator(dir + "/build/pdf.sandbox.js");
+  const pdfImageDecodersFile = readAndReplaceRegenerator(dir + "/image_decoders/pdf.image_decoders.js");
   const viewerFiles = {
     "pdf.js": pdfFile,
-    "viewer.js": fs.readFileSync(dir + "/web/viewer.js").toString(),
+    "viewer.js": readAndReplaceRegenerator(dir + "/web/viewer.js"),
   };
 
   console.log();
@@ -1073,35 +1081,25 @@ async function parseMinified(dir) {
     keep_fnames: true,
   };
 
-  /**
-   * Minifies the code and removed strict mode.
-   * We are removing strict mode to bypass unsafe-eval restrictions in regenerator-runtime.
-   * @param {string} file 
-   */
-  const minifyAndRemoveStrict = async (file) => {
-    const result = (await Terser.minify(file, options)).code
-    return result.replace(/"use strict";/gm, '');
-  }
-
   fs.writeFileSync(
     dir + "/web/pdf.viewer.js",
-    await minifyAndRemoveStrict(viewerFiles)
+    (await Terser.minify(viewerFiles, options)).code
   );
   fs.writeFileSync(
     dir + "/build/pdf.min.js",
-    await minifyAndRemoveStrict(pdfFile)
+    (await Terser.minify(pdfFile, options)).code
   );
   fs.writeFileSync(
     dir + "/build/pdf.worker.min.js",
-    await minifyAndRemoveStrict(pdfWorkerFile)
+    (await Terser.minify(pdfWorkerFile, options)).code
   );
   fs.writeFileSync(
     dir + "/build/pdf.sandbox.min.js",
-    await minifyAndRemoveStrict(pdfSandboxFile)
+    (await Terser.minify(pdfSandboxFile, options)).code
   );
   fs.writeFileSync(
     dir + "image_decoders/pdf.image_decoders.min.js",
-    await minifyAndRemoveStrict(pdfImageDecodersFile)
+    (await Terser.minify(pdfImageDecodersFile, options)).code
   );
 
   console.log();
