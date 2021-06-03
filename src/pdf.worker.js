@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+import "@officient/regenerator-runtime"
 import { WorkerMessageHandler } from "./core/worker.js";
 
 /* eslint-disable-next-line no-unused-vars */

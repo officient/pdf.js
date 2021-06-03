@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import "@officient/regenerator-runtime"
+
 // Fixes Cordova iOS keyboard issue where the scroll changes after focusing on an input
 // We need to focus on the password input for password protected PDFs
 // We scroll back to fix the viewport issue

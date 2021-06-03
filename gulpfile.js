@@ -219,7 +219,7 @@ function createWebpackConfig(
       "@babel/plugin-transform-runtime",
       {
         helpers: false,
-        regenerator: true,
+        regenerator: false,
       },
     ],
   ];
@@ -1045,27 +1045,13 @@ gulp.task(
 );
 
 async function parseMinified(dir) {
-  /**
-   * Minifies the code and removed strict mode.
-   * We are removing strict mode to bypass unsafe-eval restrictions in regenerator-runtime.
-   * @param {string} file 
-   */
-  const readAndReplaceRegenerator = (filePath) => {
-    const file = fs.readFileSync(filePath).toString();
-    const code = file.replace(
-      /try {\s+regeneratorRuntime = runtime;\s+}\s+catch\s+\(accidentalStrictMode\) {\s+Function\("r", "regeneratorRuntime = r"\)\(runtime\);\s+}/gm,
-      'var regeneratorRuntime = runtime;',
-    );
-    return code
-  }
-
-  const pdfFile = readAndReplaceRegenerator(dir + "/build/pdf.js");
-  const pdfWorkerFile = readAndReplaceRegenerator(dir + "/build/pdf.worker.js");
-  const pdfSandboxFile = readAndReplaceRegenerator(dir + "/build/pdf.sandbox.js");
-  const pdfImageDecodersFile = readAndReplaceRegenerator(dir + "/image_decoders/pdf.image_decoders.js");
+  const pdfFile = fs.readFileSync(dir + "/build/pdf.js").toString();
+  const pdfWorkerFile = fs.readFileSync(dir + "/build/pdf.worker.js").toString();
+  const pdfSandboxFile = fs.readFileSync(dir + "/build/pdf.sandbox.js").toString();
+  const pdfImageDecodersFile = fs.readFileSync(dir + "/image_decoders/pdf.image_decoders.js").toString();
   const viewerFiles = {
     "pdf.js": pdfFile,
-    "viewer.js": readAndReplaceRegenerator(dir + "/web/viewer.js"),
+    "viewer.js": fs.readFileSync(dir + "/web/viewer.js").toString(),
   };
 
   console.log();
@@ -1418,7 +1404,7 @@ function buildLibHelper(bundleDefines, inputStream, outputDir) {
           "@babel/plugin-transform-runtime",
           {
             helpers: false,
-            regenerator: true,
+            regenerator: false,
           },
         ],
         babelPluginReplaceNonWebPackRequire,

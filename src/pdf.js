@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 /* eslint-disable sort-exports/sort-exports */
+import "@officient/regenerator-runtime"
 
 import {
   addLinkAttributes,
