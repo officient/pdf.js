@@ -2193,9 +2193,11 @@ function webViewerInitialized() {
 
     // Determining the URL of the PDF we are trying to load
     // 1) No URL specified, will use a "default" fallback URL
+    // Note: in our production code, we don't use this
     file = AppOptions.get("defaultUrl");
 
     // 2) We are loading the URL from the querystring, eg: viewer.html?file=https://....
+    // Note: in our production code, we don't use this
     if ('file' in params && params.file) {
       file = params.file;
     }

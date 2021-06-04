@@ -126,6 +126,9 @@ class AnnotationFactory {
             return new ButtonWidgetAnnotation(parameters);
           case "Ch":
             return new ChoiceWidgetAnnotation(parameters);
+
+          // Fix digital signature display by simplying showing them unverified
+          // Testing: View a file with a digital signature (see PDF examples Notion document)
           case "Sig":
             return new SquareAnnotation(parameters);
         }
