@@ -1046,9 +1046,15 @@ gulp.task(
 
 async function parseMinified(dir) {
   const pdfFile = fs.readFileSync(dir + "/build/pdf.js").toString();
-  const pdfWorkerFile = fs.readFileSync(dir + "/build/pdf.worker.js").toString();
-  const pdfSandboxFile = fs.readFileSync(dir + "/build/pdf.sandbox.js").toString();
-  const pdfImageDecodersFile = fs.readFileSync(dir + "/image_decoders/pdf.image_decoders.js").toString();
+  const pdfWorkerFile = fs
+    .readFileSync(dir + "/build/pdf.worker.js")
+    .toString();
+  const pdfSandboxFile = fs
+    .readFileSync(dir + "/build/pdf.sandbox.js")
+    .toString();
+  const pdfImageDecodersFile = fs
+    .readFileSync(dir + "/image_decoders/pdf.image_decoders.js")
+    .toString();
   const viewerFiles = {
     "pdf.js": pdfFile,
     "viewer.js": fs.readFileSync(dir + "/web/viewer.js").toString(),
