@@ -2200,9 +2200,11 @@ function webViewerInitialized() {
       file = params.file;
     }
 
-    // 3) We are inside an iframe, and the URL is inside the URL attribute, eg: <iframe url="https://..." />
+    // 3) This is new...
+    // We are inside an iframe, and the URL to the PDF is inside the URL attribute, eg: <iframe url="https://..." />
+    // Testing: You can test this by using the mobile viewer in our self-service.
     if (window.frameElement && window.frameElement.getAttribute('url')) {
-      file = window.frameElement.getAttribute('url'); // Android: 
+      file = window.frameElement.getAttribute('url');
     }
   
     validateFileURL(file);
