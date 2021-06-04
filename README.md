@@ -4,12 +4,19 @@ Forked from [/mozilla/pdf.js](https://github.com/mozilla/pdf.js) - See [diff](ht
 
 ## Why
 
-The ES5 build in mozilla/pdf.js causes an unsafe-eval issue because of regenerator-runtime.
-We have made a [patch](https://github.com/mozilla/pdf.js/commit/226106d83384734d17c13c25100b8d3188b602f9) to remove strict mode during the minified build.
+### CSP issues in legacy builds
+
+Mozilla/PDF.js is causing an **unsafe-eval** issue for legacy ES5 builds because of **regenerator-runtime** (babel polyfill for async/await) requiring a side effect because they are polluting global scope with `regeneratorRuntime`. They have a way of "escaping" strict mode but it's causing CSP issues for us. An alternative is to find the global object anyway and set the `regeneratorRuntime` variable correctly on that.
+
+We found a patch that works for us but has not been merged yet: https://github.com/facebook/regenerator/pull/396 Our PDF.js fork uses this patch in our own [regenerator fork](https://github.com/officient/regenerator).
+
+### Updated viewer
+
+We added our own styling and removed the sidebar and toolbar to have a minimalistic look for our mobile app. Where you only see zoom in/out buttons.
+
+### Loading inside an iframe
 
 We are also embedding the viewer.html inside an iframe inside a PWA, this causes us to load the required file diffently.
-
-We also added our own styling, without a sidebar and toolbar to improve UX on mobile.
 
 ## Building
 
