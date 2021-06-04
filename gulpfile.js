@@ -1410,6 +1410,10 @@ function buildLibHelper(bundleDefines, inputStream, outputDir) {
           "@babel/plugin-transform-runtime",
           {
             helpers: false,
+
+            // don't automatically embed regenerator-runtime when polyfilling.
+            // we add our own polyfills in the built files by requiring our fork
+            // `import "@officient/regenerator-runtime"`
             regenerator: false,
           },
         ],
