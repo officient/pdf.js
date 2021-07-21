@@ -2117,11 +2117,7 @@ const PDFViewerApplication = {
 
 let validateFileURL;
 if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
-  const HOSTED_VIEWER_ORIGINS = [
-    "null",
-    "http://mozilla.github.io",
-    "https://mozilla.github.io",
-  ];
+  const HOSTED_VIEWER_ORIGINS = ["null", "https://selfservice.officient.io"];
   validateFileURL = function (file) {
     if (file === undefined) {
       return;
@@ -2140,6 +2136,7 @@ if (typeof PDFJSDev === "undefined" || PDFJSDev.test("GENERIC")) {
       // any blob:-URL. The browser's same-origin policy will block requests to
       // blob:-URLs from other origins, so this is safe.
       if (origin !== viewerOrigin && protocol !== "blob:") {
+        console.error({ origin, viewerOrigin })
         throw new Error("file origin does not match viewer's");
       }
     } catch (ex) {
