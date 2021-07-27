@@ -10,6 +10,10 @@ Mozilla/PDF.js is causing an **unsafe-eval** issue for legacy ES5 builds because
 
 We found a patch that works for us but has not been merged yet: https://github.com/facebook/regenerator/pull/396 Our PDF.js fork uses this patch in our own [regenerator fork](https://github.com/officient/regenerator).
 
+### Removes origin check
+
+We removed the file origin check - because we are hosting on S3 instead of our own domain.
+
 ### Updated viewer
 
 We added our own styling and removed the sidebar and toolbar to have a minimalistic look for our mobile app. Where you only see zoom in/out buttons.
