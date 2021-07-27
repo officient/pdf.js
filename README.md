@@ -13,6 +13,9 @@ We found a patch that works for us but has not been merged yet: https://github.c
 ### Removes origin check
 
 We removed the file origin check - because we are hosting on S3 instead of our own domain.
+We could whitelist  s3-eu-west-1.amazonaws.com but it is still bypassable by making a S3 bucket.
+Otherwise, anyone can simply make a trial on Officient and upload any PDF, and use it for viewer.html
+So protecting the origin here does not make sense.
 
 ### Updated viewer
 
